@@ -1,2 +1,1 @@
-# Gita_life_program
-
+# gita-life
