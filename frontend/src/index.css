@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes registration-pan-zoom {
+  0% {
+    transform: scale(1.05) translate3d(-1%, -1%, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(1.5%, 1%, 0);
+  }
+  100% {
+    transform: scale(1.05) translate3d(-1%, -1%, 0);
+  }
+}
+
+@keyframes registration-light-sweep {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(20%);
+    opacity: 0.2;
+  }
+}
+
+@layer base {
+  :root {
+    --temple-ink: #2f1f15;
+    --temple-muted: #6c5546;
+    --temple-bg: #fff9ef;
+    --temple-surface: #fffef9;
+    --temple-border: #ecd8b7;
+  }
+
+  body {
+    font-family: 'Noto Sans', 'Segoe UI', sans-serif;
+    color: var(--temple-ink);
+    background:
+      radial-gradient(circle at 15% 15%, rgba(255, 220, 146, 0.25), transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(200, 106, 31, 0.13), transparent 45%),
+      linear-gradient(180deg, #fffaf2 0%, #fff7e7 100%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    letter-spacing: 0;
+  }
+}
+
+@layer components {
+  .devotional-panel {
+    @apply rounded-xl border shadow-sm;
+    background-color: var(--temple-surface);
+    border-color: var(--temple-border);
+  }
+
+  .devotional-muted {
+    color: var(--temple-muted);
+  }
+
+  .devotional-input {
+    @apply w-full rounded-md border px-4 py-2 outline-none transition;
+    background-color: #fffdf7;
+    border-color: #dfc7a2;
+  }
+
+  .devotional-input:focus {
+    border-color: #c86a1f;
+    box-shadow: 0 0 0 3px rgba(200, 106, 31, 0.18);
+  }
+
+  .devotional-btn {
+    @apply rounded-md px-4 py-2 font-semibold text-white transition;
+    background: linear-gradient(135deg, #c86a1f 0%, #af5418 100%);
+  }
+
+  .devotional-btn:hover {
+    filter: brightness(0.95);
+  }
+
+  .devotional-btn-soft {
+    @apply rounded-md px-4 py-2 font-medium transition;
+    color: #8f4416;
+    background-color: #ffefd7;
+  }
+
+  .devotional-btn-soft:hover {
+    background-color: #ffe4be;
+  }
+
+  .devotional-table th {
+    @apply text-xs uppercase;
+    color: #8f6d4a;
+    background-color: #fff5e4;
+  }
+
+  .devotional-table td {
+    border-color: #f0e3cf;
+  }
+
+  .devotional-table tbody tr:hover {
+    background-color: #fff9ec;
+  }
+
+  .registration-bg {
+    animation: registration-pan-zoom 20s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .registration-light {
+    animation: registration-light-sweep 12s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
+}
