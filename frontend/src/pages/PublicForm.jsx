@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
-import registrationHero from '../assets/registration-hero.png';
+import logo from '../assets/gita-life-logo.png';
+import sitaBackground from '../assets/sita-login-bg.png';
 
 const PublicForm = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', location: '', college: '' });
@@ -22,25 +23,32 @@ const PublicForm = () => {
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
       <div
-        className="registration-bg absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${registrationHero})` }}
+        className="auth-bg absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sitaBackground})` }}
       />
-      <div className="registration-light absolute inset-0 bg-gradient-to-r from-[#ffffff0d] via-[#ffd27b33] to-[#ffffff0d]" />
-      <div className="absolute inset-0 bg-black/35" />
-      <div className="devotional-panel p-8 w-full max-w-md relative z-10 backdrop-blur-sm bg-[#fffef9]/95">
-        <div className="flex items-center justify-between mb-8 gap-4">
-          <div>
-            <h1 className="text-4xl font-bold text-primary-700 mb-2">Discover Yourself</h1>
-            <p className="devotional-muted">Join the Gita Life Program by ISKCON</p>
+      <div className="auth-bg-overlay absolute inset-0" />
+      <div className="absolute inset-0 bg-[#08152f]/55" />
+      <div className="devotional-panel p-6 sm:p-8 w-full max-w-xl relative z-10 backdrop-blur-md bg-[#fffef9]/94 shadow-2xl">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <img
+              src={logo}
+              alt="Gita Life Program logo"
+              className="h-20 w-20 rounded-[24px] border border-[#f4d8a5] object-cover shadow-lg"
+            />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8f6d4a]">Student Registration</p>
+              <h1 className="mb-2 text-3xl sm:text-4xl font-bold text-primary-700">Discover Yourself</h1>
+              <p className="devotional-muted">Join the Gita Life Program by ISKCON</p>
+            </div>
           </div>
           <Link
             to="/login"
-            className="text-sm font-semibold text-primary-700 border border-primary-700 px-4 py-2 rounded-lg hover:bg-primary-700 hover:text-white transition-colors"
+            className="text-sm font-semibold text-primary-700 border border-primary-700 px-4 py-2 rounded-lg hover:bg-primary-700 hover:text-white transition-colors shrink-0"
           >
             Admin Login
           </Link>
         </div>
-
         {status === 'success' ? (
           <div className="bg-[#eef8e8] text-[#315d17] p-4 rounded-lg text-center border border-[#c6e2b6]">
             <p className="font-semibold">Thank you for registering!</p>

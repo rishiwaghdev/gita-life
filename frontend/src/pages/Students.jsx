@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const Students = () => {
   const [students, setStudents] = useState([]);
@@ -16,6 +16,10 @@ const Students = () => {
         api.get('/batches')
       ]);
       setStudents(studentsRes.data);
+      setSelectedStudent((currentStudent) => {
+        if (!currentStudent) return currentStudent;
+        return studentsRes.data.find((student) => student.id === currentStudent.id) || null;
+      });
       setBatches(batchesRes.data);
     } catch (error) {
       console.error('Failed to fetch data', error);
@@ -37,12 +41,12 @@ const Students = () => {
 
   const fetchAttendanceData = async (studentId) => {
     try {
-      const res = await api.get(`/attendance?studentId=${studentId}`);
+      const res = await api.get(`/students/${studentId}/attendance`);
       // Transform data for graph
       const formattedData = res.data.map(record => ({
-        date: new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        present: record.present ? 1 : 0,
-        status: record.present ? 'Present' : 'Absent'
+        date: new Date(record.session?.date || record.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        present: record.status === 'PRESENT' ? 1 : 0,
+        status: record.status === 'PRESENT' ? 'Present' : 'Absent'
       }));
       setAttendanceData(formattedData);
     } catch (error) {
@@ -90,6 +94,12 @@ const Students = () => {
   ] : [];
 
   const COLORS = ['#10b981', '#ef4444'];
+
+  const getProgressTone = (value) => {
+    if (value >= 75) return 'from-emerald-500 to-teal-500';
+    if (value >= 40) return 'from-amber-400 to-orange-500';
+    return 'from-rose-400 to-orange-400';
+  };
 
   return (
     <div>
@@ -151,14 +161,20 @@ const Students = () => {
                     </select>
                   </td>
                   <td className="px-6 py-4 text-[#5e4738]">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-16 bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-purple-600 h-2 rounded-full transition-all duration-300" 
-                          style={{ width: `${student.batchProgress || 0}%` }}
-                        ></div>
+                    <div className="min-w-[180px]">
+                      <div className="mb-2 flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#8f6d4a]">
+                        <span>Course Progress</span>
+                        <span>{Math.round(student.batchProgress || 0)}%</span>
                       </div>
-                      <span className="text-sm font-medium">{student.batchProgress || 0}%</span>
+                      <div className="h-3 overflow-hidden rounded-full bg-[#eadfcd]">
+                        <div
+                          className={`h-full rounded-full bg-gradient-to-r ${getProgressTone(student.batchProgress || 0)} transition-all duration-500`}
+                          style={{ width: `${student.batchProgress || 0}%` }}
+                        />
+                      </div>
+                      <p className="mt-2 text-xs text-[#7b614f]">
+                        {student.attendedSessions || 0} of {student.totalSessions || 0} sessions completed
+                      </p>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
@@ -187,11 +203,31 @@ const Students = () => {
               <h2 className="text-2xl font-bold text-primary-700 mb-4">{selectedStudent.name}</h2>
               <p className="text-sm text-[#7b614f] mb-6">Phone: {selectedStudent.phone}</p>
 
+              <div className="mb-6 overflow-hidden rounded-2xl border border-[#edd9b7] bg-[#fff8ea] p-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8f6d4a]">Learning Progress</p>
+                    <p className="mt-2 text-4xl font-bold text-primary-700">{Math.round(selectedStudent.batchProgress || 0)}%</p>
+                    <p className="mt-1 text-sm text-[#7b614f]">
+                      {selectedStudent.attendedSessions || 0} of {selectedStudent.totalSessions || 0} batch sessions attended
+                    </p>
+                  </div>
+                  <div className="rounded-full border border-[#eed6ab] bg-white px-3 py-1 text-xs font-semibold text-[#8f6d4a]">
+                    {attendanceData.length} attendance records
+                  </div>
+                </div>
+                <div className="mt-4 h-4 overflow-hidden rounded-full bg-[#eadfcd] shadow-inner">
+                  <div
+                    className={`h-full rounded-full bg-gradient-to-r ${getProgressTone(selectedStudent.batchProgress || 0)} transition-all duration-500`}
+                    style={{ width: `${selectedStudent.batchProgress || 0}%` }}
+                  />
+                </div>
+              </div>
+
               {attendanceData.length === 0 ? (
                 <p className="devotional-muted text-center py-8">No attendance records yet</p>
               ) : (
                 <>
-                  {/* Stats Cards */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
                       <p className="text-xs text-green-700 font-medium">Present</p>
@@ -205,16 +241,15 @@ const Students = () => {
                       <p className="text-xs text-blue-700 font-medium">Attendance Rate</p>
                       <p className="text-3xl font-bold text-blue-700">{stats.percentage}%</p>
                     </div>
-                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
-                      <p className="text-xs text-purple-700 font-medium">Batch Progress</p>
-                      <p className="text-3xl font-bold text-purple-700">{selectedStudent.batchProgress || 0}%</p>
-                      <p className="text-xs text-purple-600 mt-1">
+                    <div className="bg-gradient-to-r from-amber-50 to-orange-100 p-4 rounded-lg border border-amber-200">
+                      <p className="text-xs text-[#9a551a] font-medium">Batch Progress</p>
+                      <p className="text-3xl font-bold text-[#9a551a]">{Math.round(selectedStudent.batchProgress || 0)}%</p>
+                      <p className="mt-1 text-xs text-[#9a551a]">
                         {selectedStudent.attendedSessions || 0}/{selectedStudent.totalSessions || 0} sessions
                       </p>
                     </div>
                   </div>
 
-                  {/* Pie Chart */}
                   <div className="mb-6">
                     <h3 className="font-semibold text-[#3b2719] mb-4">Attendance Distribution</h3>
                     <ResponsiveContainer width="100%" height={200}>
@@ -238,7 +273,6 @@ const Students = () => {
                     </ResponsiveContainer>
                   </div>
 
-                  {/* Line Chart for Attendance Trend */}
                   <div>
                     <h3 className="font-semibold text-[#3b2719] mb-4">Attendance Trend</h3>
                     <ResponsiveContainer width="100%" height={200}>

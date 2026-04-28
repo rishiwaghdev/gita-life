@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { Users, UserPlus, BookOpen, LogOut, Home, Sparkles } from 'lucide-react';
+import logo from '../assets/gita-life-logo.png';
 
 const Layout = ({ children }) => {
   const { logout } = useContext(AuthContext);
@@ -25,11 +26,20 @@ const Layout = ({ children }) => {
       {/* Sidebar */}
       <aside className="w-72 devotional-panel flex flex-col m-4 mr-0 overflow-hidden">
         <div className="p-5 border-b border-[#ecd8b7] bg-[#fff5e2]">
-          <h2 className="text-2xl font-bold text-primary-700">Gita Life Seva Desk</h2>
-          <p className="text-sm devotional-muted mt-1 flex items-center gap-2">
-            <Sparkles size={14} />
-            Devotional Program Admin
-          </p>
+          <div className="flex items-center gap-4">
+            <img
+              src={logo}
+              alt="Gita Life Program logo"
+              className="h-16 w-16 rounded-[20px] border border-[#f1d19d] object-cover shadow-sm"
+            />
+            <div>
+              <h2 className="text-2xl font-bold text-primary-700">Gita Life</h2>
+              <p className="text-sm devotional-muted mt-1 flex items-center gap-2">
+                <Sparkles size={14} />
+                Seva Desk Admin
+              </p>
+            </div>
+          </div>
         </div>
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => {

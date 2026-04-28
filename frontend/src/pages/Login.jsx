@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
+import logo from '../assets/gita-life-logo.png';
+import sitaBackground from '../assets/sita-login-bg.png';
 
 const Login = () => {
   const { login, admin } = useContext(AuthContext);
@@ -25,11 +27,24 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="devotional-panel p-8 w-full max-w-md">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
+      <div
+        className="auth-bg absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${sitaBackground})` }}
+      />
+      <div className="auth-bg-overlay absolute inset-0" />
+      <div className="absolute inset-0 bg-[#08152f]/55" />
+
+      <div className="devotional-panel p-8 w-full max-w-md relative z-10 backdrop-blur-md bg-[#fffef9]/92 shadow-2xl">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-700">Admin Login</h1>
-          <p className="devotional-muted text-sm mt-1">Gita Life Program Management</p>
+          <img
+            src={logo}
+            alt="Gita Life Program logo"
+            className="mx-auto mb-4 h-24 w-24 rounded-[28px] border border-[#f4d8a5] object-cover shadow-lg"
+          />
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8f6d4a]">Admin Portal</p>
+          <h1 className="mt-2 text-3xl font-bold text-primary-700">Gita Life Program</h1>
+          <p className="devotional-muted text-sm mt-1">Sign in to manage students, batches, and attendance.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
