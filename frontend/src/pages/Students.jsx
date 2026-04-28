@@ -103,16 +103,8 @@ const Students = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold text-primary-700">Students Management</h1>
-        <a
-          href="https://gita-life-be.vercel.app/api"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-        >
-          Backend UI
-        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
