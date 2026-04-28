@@ -1,6 +1,7 @@
 const prisma = require('../prisma/client');
 
 const getStudents = async (req, res) => {
+  console.log('getStudents called - updated version');
   try {
     const students = await prisma.student.findMany({
       include: {
@@ -10,14 +11,49 @@ const getStudents = async (req, res) => {
       orderBy: { createdAt: 'desc' }
     });
     
-    // Add attendance summary
+    // Get all batch IDs that have students
+    const batchIds = [...new Set(students.map(s => s.batchId).filter(id => id))];
+    
+    // Fetch sessions for these batches
+    const sessions = await prisma.session.findMany({
+      where: {
+        batchId: {
+          in: batchIds
+        }
+      }
+    });
+    
+    // Group sessions by batchId
+    const sessionsByBatch = sessions.reduce((acc, session) => {
+      if (!acc[session.batchId]) acc[session.batchId] = [];
+      acc[session.batchId].push(session);
+      return acc;
+    }, {});
+    
+    // Add attendance summary and batch progress
     const formattedStudents = students.map(student => {
       const presentCount = student.attendance.filter(a => a.status === 'PRESENT').length;
-      const totalCount = student.attendance.length;
+      const totalAttendance = student.attendance.length;
+      const attendancePercentage = totalAttendance ? ((presentCount / totalAttendance) * 100).toFixed(2) : 0;
+
+      // Calculate batch progress
+      let batchProgress = 0;
+      let totalSessions = 0;
+      let attendedSessions = 0;
+      
+      if (student.batchId && sessionsByBatch[student.batchId]) {
+        totalSessions = sessionsByBatch[student.batchId].length;
+        attendedSessions = student.attendance.filter(a => a.status === 'PRESENT').length;
+        batchProgress = totalSessions > 0 ? ((attendedSessions / totalSessions) * 100).toFixed(2) : 0;
+      }
+
       return {
         ...student,
-        attendanceSummary: `${presentCount}/${totalCount}`,
-        attendancePercentage: totalCount ? ((presentCount / totalCount) * 100).toFixed(2) : 0
+        attendanceSummary: `${presentCount}/${totalAttendance}`,
+        attendancePercentage: parseFloat(attendancePercentage),
+        batchProgress: parseFloat(batchProgress),
+        totalSessions,
+        attendedSessions
       };
     });
 

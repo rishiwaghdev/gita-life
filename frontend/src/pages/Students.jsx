@@ -117,14 +117,15 @@ const Students = () => {
                 <th className="px-6 py-4">Phone</th>
                 <th className="px-6 py-4">College</th>
                 <th className="px-6 py-4">Batch</th>
+                <th className="px-6 py-4">Progress</th>
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan="5" className="px-6 py-8 text-center devotional-muted">Loading...</td></tr>
+                <tr><td colSpan="6" className="px-6 py-8 text-center devotional-muted">Loading...</td></tr>
               ) : students.length === 0 ? (
-                <tr><td colSpan="5" className="px-6 py-8 text-center devotional-muted">No students found.</td></tr>
+                <tr><td colSpan="6" className="px-6 py-8 text-center devotional-muted">No students found.</td></tr>
               ) : students.map(student => (
                 <tr 
                   key={student.id} 
@@ -148,6 +149,17 @@ const Students = () => {
                         <option key={batch.id} value={batch.id}>{batch.name}</option>
                       ))}
                     </select>
+                  </td>
+                  <td className="px-6 py-4 text-[#5e4738]">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-16 bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-purple-600 h-2 rounded-full transition-all duration-300" 
+                          style={{ width: `${student.batchProgress || 0}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-medium">{student.batchProgress || 0}%</span>
+                    </div>
                   </td>
                   <td className="px-6 py-4 text-right">
                     <button
@@ -189,9 +201,16 @@ const Students = () => {
                       <p className="text-xs text-red-700 font-medium">Absent</p>
                       <p className="text-2xl font-bold text-red-700">{stats.absent}</p>
                     </div>
-                    <div className="col-span-2 bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                    <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
                       <p className="text-xs text-blue-700 font-medium">Attendance Rate</p>
                       <p className="text-3xl font-bold text-blue-700">{stats.percentage}%</p>
+                    </div>
+                    <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                      <p className="text-xs text-purple-700 font-medium">Batch Progress</p>
+                      <p className="text-3xl font-bold text-purple-700">{selectedStudent.batchProgress || 0}%</p>
+                      <p className="text-xs text-purple-600 mt-1">
+                        {selectedStudent.attendedSessions || 0}/{selectedStudent.totalSessions || 0} sessions
+                      </p>
                     </div>
                   </div>
 
