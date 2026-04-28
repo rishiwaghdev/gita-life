@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 import registrationHero from '../assets/registration-hero.png';
 
@@ -27,9 +28,17 @@ const PublicForm = () => {
       <div className="registration-light absolute inset-0 bg-gradient-to-r from-[#ffffff0d] via-[#ffd27b33] to-[#ffffff0d]" />
       <div className="absolute inset-0 bg-black/35" />
       <div className="devotional-panel p-8 w-full max-w-md relative z-10 backdrop-blur-sm bg-[#fffef9]/95">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary-700 mb-2">Discover Yourself</h1>
-          <p className="devotional-muted">Join the Gita Life Program by ISKCON</p>
+        <div className="flex items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-4xl font-bold text-primary-700 mb-2">Discover Yourself</h1>
+            <p className="devotional-muted">Join the Gita Life Program by ISKCON</p>
+          </div>
+          <Link
+            to="/login"
+            className="text-sm font-semibold text-primary-700 border border-primary-700 px-4 py-2 rounded-lg hover:bg-primary-700 hover:text-white transition-colors"
+          >
+            Admin Login
+          </Link>
         </div>
 
         {status === 'success' ? (
