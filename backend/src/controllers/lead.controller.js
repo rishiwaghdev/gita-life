@@ -1,5 +1,5 @@
 const prisma = require('../prisma/client');
-const emailService = require('../services/email.service');
+const telegramService = require('../services/telegram.service');
 
 const createLead = async (req, res) => {
   try {
@@ -80,31 +80,30 @@ const convertLead = async (req, res) => {
 const sendThankYouMessage = async (req, res) => {
   try {
     const { id } = req.params;
-    const { message, subject, sessionTime } = req.body;
+    const { chatId, message, sessionTime } = req.body;
 
     const lead = await prisma.lead.findUnique({ where: { id: parseInt(id) } });
     if (!lead) return res.status(404).json({ message: 'Lead not found' });
-    if (!lead.email) return res.status(400).json({ message: 'Lead has no email address' });
 
     const resolvedSessionTime = sessionTime || 'your scheduled time';
-    const emailSubject = subject || 'Gita Life Session Reminder';
-    const emailBody = message || `Hello ${lead.name} 🙏
+    const telegramMessage = message || `Hello ${lead.name} 🙏
 
 Your Gita Life session is scheduled for tomorrow at ${resolvedSessionTime}.
 
-Every session is a step forward in your journey of learning and self-growth. Try to attend regularly and stay consistent — it truly makes a difference.
+Every session is a step forward in your journey of learning and self-growth. Try to attend regularly and stay consistent - it truly makes a difference.
 
 We look forward to your presence. See you tomorrow!`;
-    await emailService.sendEmail({
-      to: lead.email,
-      subject: emailSubject,
-      text: emailBody,
+
+    await telegramService.sendMessage({
+      chatId,
+      text: telegramMessage,
     });
 
-    res.json({ message: 'Email sent successfully' });
+    res.json({ message: 'Telegram message sent successfully' });
   } catch (error) {
-    console.error('Send message error:', error);
-    res.status(500).json({ message: 'Server error: ' + error.message });
+    const telegramError = error.response?.data?.description || error.message;
+    console.error('Send Telegram message error:', error.response?.data || error);
+    res.status(500).json({ message: 'Telegram error: ' + telegramError });
   }
 };
 
