@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 
 const Dashboard = () => {
@@ -34,23 +34,23 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-primary-700 mb-2">Dashboard</h1>
+      <h1 className="mb-2 text-2xl font-bold text-primary-700 sm:text-3xl">Dashboard</h1>
       <p className="devotional-muted mb-6">Track participation and guide the Gita learning journey.</p>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="devotional-panel p-6">
+      <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
+        <div className="devotional-panel p-5 sm:p-6">
           <h3 className="devotional-muted text-sm font-medium">Total Leads</h3>
           <p className="text-3xl font-bold text-primary-700 mt-2">
             {loading ? '--' : stats.totalLeads}
           </p>
         </div>
-        <div className="devotional-panel p-6">
+        <div className="devotional-panel p-5 sm:p-6">
           <h3 className="devotional-muted text-sm font-medium">Enrolled Students</h3>
           <p className="text-3xl font-bold text-primary-700 mt-2">
             {loading ? '--' : stats.enrolledStudents}
           </p>
         </div>
-        <div className="devotional-panel p-6">
+        <div className="devotional-panel p-5 sm:p-6">
           <h3 className="devotional-muted text-sm font-medium">Active Batches</h3>
           <p className="text-3xl font-bold text-primary-700 mt-2">
             {loading ? '--' : stats.activeBatches}
@@ -58,7 +58,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="devotional-panel p-6">
+      <div className="devotional-panel p-5 sm:p-6">
         <h2 className="text-xl font-semibold text-primary-700 mb-4">Quick Actions</h2>
         <div className="flex gap-4">
           <p className="devotional-muted">Use the sidebar to manage leads, students, and batches in one devotional workflow.</p>

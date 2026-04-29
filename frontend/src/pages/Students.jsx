@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
@@ -104,15 +104,15 @@ const Students = () => {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-primary-700">Students Management</h1>
+        <h1 className="text-2xl font-bold text-primary-700 sm:text-3xl">Students Management</h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Students List */}
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
         <div className="devotional-panel overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left devotional-table">
+          <table className="min-w-[860px] w-full text-left text-sm devotional-table">
             <thead className="border-b border-[#ead3ad]">
               <tr>
                 <th className="px-6 py-4">Name</th>
@@ -153,7 +153,7 @@ const Students = () => {
                     </select>
                   </td>
                   <td className="px-6 py-4 text-[#5e4738]">
-                    <div className="min-w-[180px]">
+                    <div className="min-w-[160px]">
                       <div className="mb-2 flex items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#8f6d4a]">
                         <span>Course Progress</span>
                         <span>{Math.round(student.batchProgress || 0)}%</span>
@@ -190,13 +190,13 @@ const Students = () => {
 
         {/* Attendance Progress Panel */}
         {selectedStudent && (
-          <div className="lg:col-span-1">
-            <div className="devotional-panel p-6 sticky top-20">
-              <h2 className="text-2xl font-bold text-primary-700 mb-4">{selectedStudent.name}</h2>
+          <div className="xl:col-span-1">
+            <div className="devotional-panel p-5 sm:p-6 xl:sticky xl:top-6">
+              <h2 className="mb-4 text-xl font-bold text-primary-700 sm:text-2xl">{selectedStudent.name}</h2>
               <p className="text-sm text-[#7b614f] mb-6">Phone: {selectedStudent.phone}</p>
 
               <div className="mb-6 overflow-hidden rounded-2xl border border-[#edd9b7] bg-[#fff8ea] p-4">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8f6d4a]">Learning Progress</p>
                     <p className="mt-2 text-4xl font-bold text-primary-700">{Math.round(selectedStudent.batchProgress || 0)}%</p>

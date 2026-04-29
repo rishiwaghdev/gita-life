@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { format } from 'date-fns';
@@ -79,22 +79,22 @@ const Batches = () => {
   return (
     <div>
       {/* Backend Redirect Button */}
-      <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary-700">Batches</h1>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-primary-700 sm:text-3xl">Batches</h1>
         <a
           href="https://gita-life-be.vercel.app/api"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+          className="self-start rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 sm:self-auto"
         >
           Backend UI
         </a>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-8">
         {/* Batches Section */}
         <div>
-          <form onSubmit={handleCreateBatch} className="flex gap-2 mb-6">
+          <form onSubmit={handleCreateBatch} className="mb-6 flex flex-col gap-2 sm:flex-row">
             <input
               type="text"
               required
@@ -121,10 +121,10 @@ const Batches = () => {
                 }`}
                 onClick={() => loadSessions(batch.id)}
               >
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <h3 className="font-semibold text-[#3b2719] text-lg">{batch.name}</h3>
-                  <div className="flex items-center gap-4">
-                    <div className="text-sm text-[#7b614f] space-x-3">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-[#7b614f]">
                       <span>{batch._count.students} Students</span>
                       <span>{batch._count.sessions} Sessions</span>
                     </div>
@@ -146,15 +146,15 @@ const Batches = () => {
 
         {/* Sessions Section */}
         {selectedBatchId && (
-          <div className="devotional-panel p-6">
-            <h2 className="text-2xl font-bold text-primary-700 mb-6">Sessions for Selected Batch</h2>
+          <div className="devotional-panel p-5 sm:p-6">
+            <h2 className="mb-6 text-xl font-bold text-primary-700 sm:text-2xl">Sessions for Selected Batch</h2>
             
             <form onSubmit={handleCreateSession} className="bg-[#fff8ec] p-4 rounded-lg border border-[#ecd8b7] mb-6 space-y-4">
               <h4 className="font-medium text-[#5e4738]">Add New Session</h4>
               <div>
                 <input type="text" placeholder="Session Title (Optional)" value={newSession.title} onChange={e => setNewSession({...newSession, title: e.target.value})} className="devotional-input text-sm" />
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <input type="date" required value={newSession.date} onChange={e => setNewSession({...newSession, date: e.target.value})} className="devotional-input flex-1 text-sm" />
                 <input type="time" required value={newSession.time} onChange={e => setNewSession({...newSession, time: e.target.value})} className="devotional-input flex-1 text-sm" />
               </div>

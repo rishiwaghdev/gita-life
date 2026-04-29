@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../services/api';
 import { format } from 'date-fns';
 import { Mail } from 'lucide-react';
@@ -69,13 +69,13 @@ We look forward to your presence. See you tomorrow!`;
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-primary-700">Leads Management</h1>
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-primary-700 sm:text-3xl">Leads Management</h1>
       </div>
 
       <div className="devotional-panel overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left devotional-table">
+          <table className="min-w-[900px] w-full text-left text-sm devotional-table">
             <thead className="border-b border-[#ead3ad]">
               <tr>
                 <th className="px-6 py-4">Name</th>
@@ -110,7 +110,7 @@ We look forward to your presence. See you tomorrow!`;
                   </td>
                   <td className="px-6 py-4 text-right">
                     {lead.status === 'PENDING' && (
-                      <div className="flex gap-2 justify-end">
+                      <div className="flex flex-wrap justify-end gap-2">
                         <button
                           onClick={() => handleSendMessage(lead.id, lead.name)}
                           className="inline-flex items-center gap-1.5 text-[#b42318] bg-[#fff0ee] hover:bg-[#ffe4e0] border border-[#f4c2bc] px-2.5 py-1 rounded-md font-medium text-sm transition-colors"

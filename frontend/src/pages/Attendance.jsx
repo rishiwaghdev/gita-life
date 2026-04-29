@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
 import { ArrowLeft, Check, X } from 'lucide-react';
@@ -56,16 +56,16 @@ const Attendance = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-6">
-        <Link to="/dashboard/batches" className="text-[#7b614f] hover:text-[#3b2719]">
+      <div className="mb-6 flex items-center gap-3 sm:gap-4">
+        <Link to="/dashboard/batches" className="shrink-0 text-[#7b614f] hover:text-[#3b2719]">
           <ArrowLeft size={24} />
         </Link>
-        <h1 className="text-3xl font-bold text-primary-700">Mark Attendance</h1>
+        <h1 className="text-2xl font-bold text-primary-700 sm:text-3xl">Mark Attendance</h1>
       </div>
 
       <div className="devotional-panel overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left devotional-table">
+          <table className="min-w-[520px] w-full text-left text-sm devotional-table">
             <thead className="border-b border-[#ead3ad]">
               <tr>
                 <th className="px-6 py-4">Student Name</th>
