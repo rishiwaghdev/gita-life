@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import logo from '../assets/gita-life-logo.png';
 import sitaBackground from '../assets/sita-login-bg.png';
 
@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true);
     try {
       await login(email, password);
-    } catch (err) {
+    } catch {
       setError('Invalid email or password');
     } finally {
       setLoading(false);
@@ -74,12 +74,18 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            onClick={handleSubmit}
             className="w-full devotional-btn"
           >
             {loading ? 'Logging in...' : 'Sign In'}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-sm devotional-muted">
+          New student?{' '}
+          <Link to="/" className="font-semibold text-primary-700 hover:text-primary-600">
+            Register Now
+          </Link>
+        </p>
       </div>
     </div>
   );

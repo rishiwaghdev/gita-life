@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import logo from '../assets/gita-life-logo.png';
@@ -7,15 +7,18 @@ import sitaBackground from '../assets/sita-login-bg.png';
 const PublicForm = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', location: '', college: '' });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+    setErrorMessage('');
     try {
       await api.post('/leads', formData);
       setStatus('success');
       setFormData({ name: '', phone: '', email: '', location: '', college: '' });
     } catch (error) {
+      setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
       setStatus('error');
     }
   };
@@ -117,13 +120,12 @@ const PublicForm = () => {
             </div>
 
             {status === 'error' && (
-              <p className="text-red-700 text-sm">Something went wrong. Please try again.</p>
+              <p className="text-red-700 text-sm">{errorMessage}</p>
             )}
 
             <button
               type="submit"
               disabled={status === 'loading'}
-              onClick={handleSubmit}
               className="w-full devotional-btn py-3 flex justify-center items-center"
             >
               {status === 'loading' ? 'Submitting...' : 'Register Now'}
