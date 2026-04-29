@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8716652756:AAFBWzF06_CJFSr6PpDGzdfPW-rBQus3euo';
 const TELEGRAM_DEFAULT_CHAT_ID = process.env.TELEGRAM_DEFAULT_CHAT_ID;
 
 const sendMessage = async ({ chatId, text }) => {

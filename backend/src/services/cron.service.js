@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const prisma = require('../prisma/client');
-const { sendEmail } = require('./email.service');
+const { sendMessage } = require('./telegram.service');
 
 // Schedule job to run every day at 8:00 AM
 const startCronJobs = () => {
@@ -42,12 +42,11 @@ Your Gita Life session is scheduled for tomorrow at ${sessionTime}.
 Every session is a step forward in your journey of learning and self-growth. Try to attend regularly and stay consistent — it truly makes a difference.
 
 We look forward to your presence. See you tomorrow!`;
-            await sendEmail({
-              to: student.email,
-              subject: 'Gita Life Session Reminder',
+            await sendMessage({
+              chatId: student.phone,
               text: reminderMessage,
             });
-            console.log(`Reminder email sent to ${student.name} (${student.email}) for session: ${session.title || session.date}`);
+            console.log(`Reminder telegram sent to ${student.name} (${student.phone}) for session: ${session.title || session.date}`);
           }
         }
       }
