@@ -34,11 +34,15 @@ const Leads = () => {
   };
 
   const handleSendMessage = async (leadId, leadName) => {
+    alert(`Get chat ID: Message @userinfobot on Telegram → /start → copy ID (e.g. 123456789)\n\nPhone numbers don't work!`);
     const chatId = window.prompt(
-      `Telegram chat ID for ${leadName}:`,
-      ''
+      `Telegram chat ID/phone for ${leadName} (${lead.phone}):`,
+      lead.phone || ''
     );
-    if (chatId === null) return;
+    if (chatId === null || !chatId.match(/^-?\d+$/)) {
+      alert('Invalid chat ID! Must be numeric (e.g. 123456789)');
+      return;
+    }
 
     const sessionTime = window.prompt(`Session time for ${leadName}:`, '7:00 PM');
     if (!sessionTime) return;
