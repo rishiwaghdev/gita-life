@@ -28,7 +28,7 @@ const PublicForm = () => {
       />
       <div className="auth-bg-overlay absolute inset-0" />
       <div className="absolute inset-0 bg-[#08152f]/55" />
-      <div className="devotional-panel p-6 sm:p-8 w-full max-w-xl relative z-10 backdrop-blur-md bg-[#fffef9]/94 shadow-2xl">
+      <div className="devotional-panel p-6 sm:p-8 w-full max-w-xl relative z-10 bg-[#fffef9]/94 shadow-2xl">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <img
@@ -123,6 +123,7 @@ const PublicForm = () => {
             <button
               type="submit"
               disabled={status === 'loading'}
+              onClick={handleSubmit}
               className="w-full devotional-btn py-3 flex justify-center items-center"
             >
               {status === 'loading' ? 'Submitting...' : 'Register Now'}

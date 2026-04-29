@@ -92,6 +92,7 @@
     @apply w-full rounded-md border px-4 py-2 outline-none transition;
     background-color: #fffdf7;
     border-color: #dfc7a2;
+    -webkit-appearance: none;
   }
 
   .devotional-input:focus {
@@ -100,8 +101,11 @@
   }
 
   .devotional-btn {
-    @apply rounded-md px-4 py-2 font-semibold text-white transition;
+    @apply rounded-md px-4 py-3 font-semibold text-white transition;
     background: linear-gradient(135deg, #c86a1f 0%, #af5418 100%);
+    -webkit-appearance: none;
+    touch-action: manipulation;
+    cursor: pointer;
   }
 
   .devotional-btn:hover {
@@ -145,6 +149,7 @@
   .auth-bg {
     animation: auth-pan-zoom 24s ease-in-out infinite;
     will-change: transform;
+    pointer-events: none;
   }
 
   .auth-bg-overlay {
@@ -153,5 +158,6 @@
       linear-gradient(135deg, rgba(4, 13, 33, 0.25), rgba(6, 20, 50, 0.55));
     animation: auth-light-breathe 10s ease-in-out infinite;
     will-change: opacity;
+    pointer-events: none;
   }
 }

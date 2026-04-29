@@ -35,7 +35,7 @@ const Login = () => {
       <div className="auth-bg-overlay absolute inset-0" />
       <div className="absolute inset-0 bg-[#08152f]/55" />
 
-      <div className="devotional-panel p-8 w-full max-w-md relative z-10 backdrop-blur-md bg-[#fffef9]/92 shadow-2xl">
+      <div className="devotional-panel p-8 w-full max-w-md relative z-10 bg-[#fffef9]/92 shadow-2xl">
         <div className="text-center mb-8">
           <img
             src={logo}
@@ -74,6 +74,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
+            onClick={handleSubmit}
             className="w-full devotional-btn"
           >
             {loading ? 'Logging in...' : 'Sign In'}

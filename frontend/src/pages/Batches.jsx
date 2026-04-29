@@ -103,7 +103,7 @@ const Batches = () => {
               placeholder="New Batch Name"
               className="devotional-input flex-1"
             />
-            <button type="submit" className="devotional-btn">
+            <button type="submit" onClick={handleCreateBatch} className="devotional-btn">
               Create
             </button>
           </form>
@@ -158,7 +158,7 @@ const Batches = () => {
                 <input type="date" required value={newSession.date} onChange={e => setNewSession({...newSession, date: e.target.value})} className="devotional-input flex-1 text-sm" />
                 <input type="time" required value={newSession.time} onChange={e => setNewSession({...newSession, time: e.target.value})} className="devotional-input flex-1 text-sm" />
               </div>
-              <button type="submit" className="w-full devotional-btn text-sm">
+              <button type="submit" onClick={handleCreateSession} className="w-full devotional-btn text-sm">
                 Add Session
               </button>
             </form>
