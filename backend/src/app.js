@@ -17,15 +17,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/leads', leadRoutes);
-app.use('/api/students', studentRoutes);
-app.use('/api/batches', batchRoutes);
-app.use('/api/sessions', sessionRoutes);
-app.use('/api/attendance', attendanceRoutes);
+// Routes. The plain routes avoid Vercel's reserved /api path, while /api routes
+// keep local/dev clients and older deployments compatible.
+app.use(['/api/auth', '/auth'], authRoutes);
+app.use(['/api/leads', '/leads'], leadRoutes);
+app.use(['/api/students', '/students'], studentRoutes);
+app.use(['/api/batches', '/batches'], batchRoutes);
+app.use(['/api/sessions', '/sessions'], sessionRoutes);
+app.use(['/api/attendance', '/attendance'], attendanceRoutes);
 
-app.get('/api/health', async (req, res) => {
+app.get(['/api/health', '/health'], async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
     res.json({ status: 'ok', db: true });

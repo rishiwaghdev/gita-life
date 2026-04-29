@@ -18,7 +18,10 @@ const PublicForm = () => {
       setStatus('success');
       setFormData({ name: '', phone: '', email: '', location: '', college: '' });
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+      setErrorMessage(
+        error.response?.data?.message ||
+        'Registration server is not responding. Please try again in a moment.'
+      );
       setStatus('error');
     }
   };

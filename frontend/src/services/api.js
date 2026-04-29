@@ -1,11 +1,17 @@
 import axios from 'axios';
 
 const defaultApiBaseUrl = import.meta.env.PROD
-  ? 'https://gita-life-be.vercel.app/api'
+  ? 'https://gita-life-be.vercel.app'
   : 'http://localhost:5000/api';
 
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL || defaultApiBaseUrl;
+const apiBaseUrl = import.meta.env.PROD
+  ? configuredApiBaseUrl.replace(/\/api\/?$/, '')
+  : configuredApiBaseUrl;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || defaultApiBaseUrl,
+  baseURL: apiBaseUrl,
+  timeout: 15000,
 });
 
 api.interceptors.request.use((config) => {
