@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
-import logo from '../assets/gita-life-logo.png';
+import logo from '../assets/gita-life-logo.jpeg';
 import sitaBackground from '../assets/sita-login-bg.png';
 
 const PublicForm = () => {

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { Users, UserPlus, BookOpen, LogOut, Home, Sparkles } from 'lucide-react';
-import logo from '../assets/gita-life-logo.png';
+import logo from '../assets/gita-life-logo.jpeg';
 
 const Layout = ({ children }) => {
   const { logout } = useContext(AuthContext);

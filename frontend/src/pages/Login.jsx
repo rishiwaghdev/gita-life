@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { Link, Navigate } from 'react-router-dom';
-import logo from '../assets/gita-life-logo.png';
+import logo from '../assets/gita-life-logo.jpeg';
 import sitaBackground from '../assets/sita-login-bg.png';
 
 const Login = () => {
