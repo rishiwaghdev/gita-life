@@ -58,7 +58,7 @@ const PublicForm = () => {
         {status === 'success' ? (
           <div className="bg-[#eef8e8] text-[#315d17] p-4 rounded-lg text-center border border-[#c6e2b6]">
             <p className="font-semibold">Thank you for registering!</p>
-            <p className="text-sm mt-1">We will contact you by email shortly.</p>
+            <p className="text-sm mt-1">We will contact you shortly.</p>
             <button 
               onClick={() => setStatus('idle')}
               className="mt-4 text-primary-700 hover:text-primary-600 text-sm font-medium"
@@ -80,7 +80,7 @@ const PublicForm = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#5e4738] mb-1">WhatsApp Number *</label>
+              <label className="block text-sm font-medium text-[#5e4738] mb-1">Telegram Phone Number * (for reminders)</label>
               <input
                 type="tel"
                 required
@@ -91,10 +91,9 @@ const PublicForm = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#5e4738] mb-1">Email *</label>
+              <label className="block text-sm font-medium text-[#5e4738] mb-1">Email (Optional - Telegram preferred)</label>
               <input
                 type="email"
-                required
                 value={formData.email}
                 onChange={e => setFormData({...formData, email: e.target.value})}
                 className="devotional-input"
