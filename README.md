@@ -115,7 +115,7 @@ npm run dev
 ### 🧾 Student Registration Page
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/registration.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/registration.png.png" width="800"/>
 </p>
 <p align="center"><i>Clean and simple registration flow for students to join Gita Life sessions</i></p>
 
@@ -124,7 +124,7 @@ npm run dev
 ### 📊 Admin Dashboard
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/dashboard.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/dashboard.png.png" width="800"/>
 </p>
 <p align="center"><i>Overview of total leads, students, and active batches</i></p>
 
@@ -133,7 +133,7 @@ npm run dev
 ### 👨‍🎓 Student Management
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/students.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/students.png.png" width="800"/>
 </p>
 <p align="center"><i>Assign students to batches and track course progress</i></p>
 
@@ -142,7 +142,7 @@ npm run dev
 ### 📚 Batch & Session Management
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/batches.png" width="800"/>
+  <img src="https://raw.githubusercontent.com/rishiwaghdev/gita-life/main/assets/batches.png.png" width="800"/>
 </p>
 <p align="center"><i>Create batches, schedule sessions, and mark attendance</i></p>
 
