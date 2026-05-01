@@ -53,7 +53,7 @@ The goal of this project is to blend **technology + spirituality**, making it ea
 
 **Database**
 
-* (Add yours here: MongoDB / PostgreSQL / Prisma if used)
+*  PostgreSQL / Prisma 
 
 **Deployment**
 
